@@ -6,7 +6,7 @@ resource "aws_instance" "mongodb" {
       tags = merge (
         local.common_tags,
         {
-            Name = "${var.project_name}-${var.environment}-mongodb" #roboshop-dev-mongodb
+            Name = "${common_name_suffix}-mongodb" #roboshop-dev-mongodb
         }
     )
 }
@@ -24,6 +24,7 @@ resource "terraform_data" "mongodb" {
 
 provisioner "remote-exec" {
      inline = [
+        "echo hello terraform iam in bastion"
     ]
   }
 }
