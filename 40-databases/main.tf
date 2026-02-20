@@ -21,10 +21,17 @@ resource "terraform_data" "mongodb" {
     password = "DevOps321"
     host     = aws_instance.mongodb.private_ip
   }
+  
+  # Terraform copy below .sh file to mongodb server
+  provisioner "file" {
+      source = "bootstrap.sh"
+      destination = "/tmp/bootstrap.sh"
+  }
 
 provisioner "remote-exec" {
      inline = [
-        "echo hello terraform iam in bastion"
+        "chmod +x /tmp/bootstrap.sh",
+        "sudo sh /tmp/bootstrap.sh"
     ]
   }
 }
