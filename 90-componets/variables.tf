@@ -26,5 +26,4 @@ variable "rule_priority" {
     #     frontend = {
     #         rule_priority = 10
     #     }
-    }
-    }
+    
