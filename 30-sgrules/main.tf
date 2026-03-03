@@ -110,16 +110,6 @@ resource "aws_security_group_rule" "catalogue_backend_alb" {
   to_port           = 8080
 }
 
-# This is the mistake we did, cart can't access catalogue directly, it should be through backend ALB
-/* resource "aws_security_group_rule" "catalogue_cart" {
-  type              = "ingress"
-  security_group_id = local.catalogue_sg_id
-  source_security_group_id = local.cart_sg_id
-  from_port         = 8080
-  protocol          = "tcp"
-  to_port           = 8080
-} */
-
 ##### User SG Rules #####
 resource "aws_security_group_rule" "user_bastion" {
   type              = "ingress"
@@ -196,15 +186,6 @@ resource "aws_security_group_rule" "payment_backend_alb" {
   to_port           = 8080
 }
 
-resource "aws_security_group_rule" "payment_shipping" {
-  type              = "ingress"
-  security_group_id = local.payment_sg_id
-  source_security_group_id = local.shipping_sg_id
-  from_port         = 8080
-  protocol          = "tcp"
-  to_port           = 8080
-}
-
 ##### Backend ALB SG Rules #####
 resource "aws_security_group_rule" "backend_alb_bastion" {
   type              = "ingress"
@@ -223,34 +204,6 @@ resource "aws_security_group_rule" "backend_alb_frontend" {
   protocol          = "tcp"
   to_port           = 80
 }
-
-resource "aws_security_group_rule" "backend_alb_cart" {
-  type              = "ingress"
-  security_group_id = local.backend_alb_sg_id
-  source_security_group_id = local.cart_sg_id
-  from_port         = 80
-  protocol          = "tcp"
-  to_port           = 80
-}
-
-resource "aws_security_group_rule" "backend_alb_shipping" {
-  type              = "ingress"
-  security_group_id = local.backend_alb_sg_id
-  source_security_group_id = local.shipping_sg_id
-  from_port         = 80
-  protocol          = "tcp"
-  to_port           = 80
-}
-
-resource "aws_security_group_rule" "backend_alb_payment" {
-  type              = "ingress"
-  security_group_id = local.backend_alb_sg_id
-  source_security_group_id = local.payment_sg_id
-  from_port         = 80
-  protocol          = "tcp"
-  to_port           = 80
-}
-
 ##### Frontend SG Rules #####
 
 resource "aws_security_group_rule" "frontend_bastion" {
@@ -280,6 +233,7 @@ resource "aws_security_group_rule" "frontend_alb_public" {
   protocol          = "tcp"
   to_port           = 443
 }
+
 ##### Bastion SG Rules #####
 resource "aws_security_group_rule" "bastion_laptop" {
   type              = "ingress"
@@ -289,3 +243,34 @@ resource "aws_security_group_rule" "bastion_laptop" {
   protocol          = "tcp"
   to_port           = 22
 }
+
+
+resource "aws_security_group_rule" "backend_alb_cart" {
+  type              = "ingress"
+  security_group_id = local.backend_alb_sg_id
+  source_security_group_id = local.cart_sg_id
+  from_port         = 80
+  protocol          = "tcp"
+  to_port           = 80
+}
+
+resource "aws_security_group_rule" "backend_alb_shipping" {
+  type              = "ingress"
+  security_group_id = local.backend_alb_sg_id
+  source_security_group_id = local.shipping_sg_id
+  from_port         = 80
+  protocol          = "tcp"
+  to_port           = 80
+}
+
+resource "aws_security_group_rule" "backend_alb_payment" {
+  type              = "ingress"
+  security_group_id = local.backend_alb_sg_id
+  source_security_group_id = local.payment_sg_id
+  from_port         = 80
+  protocol          = "tcp"
+  to_port           = 80
+}
+
+
+
