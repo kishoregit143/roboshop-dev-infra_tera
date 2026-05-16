@@ -6,8 +6,8 @@ terraform {
     }
   }
 backend "s3" {
-    bucket = "devopslabs-remote-state"
-    key    = "ec2-vpc-roboshop-sg"
+    bucket = "86s-remote"
+    key    = "sg"
     region = "us-east-1"
     use_lockfile = true
     encrypt = true
