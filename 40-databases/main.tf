@@ -129,7 +129,7 @@ resource "aws_instance" "mysql" {
 
 resource "aws_iam_instance_profile" "mysql" {
   name = "mysql"
-  role = "EC2SSMParamaterRead"
+  role = "EC2SSMparamaterstoreread"
 }
 
 resource "terraform_data" "mysql" {
