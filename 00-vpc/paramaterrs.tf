@@ -8,7 +8,7 @@ resource "aws_ssm_parameter" "public_subnet_id" {
 #   count = length(var.sg_names)
   name  = "/${var.project_name}/${var.environment}/public_subnet_ids"
   type  = "StringList"
-  value = join("," ,module.vpc.public_subnet_ids)
+  value = join("," ,module.vpc.public_subnet_ids) #subnet-0cfe9deb4137e41ca,subnet-073ff1a4b98a1ca36
 }
 
 resource "aws_ssm_parameter" "private_subnet_id" {
